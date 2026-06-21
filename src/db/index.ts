@@ -40,7 +40,9 @@ async function initPostgres(url: string): Promise<Db> {
 }
 
 async function init(): Promise<Db> {
-  const url = process.env.DATABASE_URL;
+  // DATABASE_URL is the canonical name; POSTGRES_URL is what Vercel Postgres /
+  // Neon inject automatically, so accept either.
+  const url = process.env.DATABASE_URL ?? process.env.POSTGRES_URL;
   return url ? initPostgres(url) : initPglite();
 }
 

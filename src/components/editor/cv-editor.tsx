@@ -12,7 +12,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { computeCvCompletion, type CvFormValues } from "@/lib/validation/cv";
 import { saveCv } from "@/lib/actions/documents";
 import {
@@ -71,10 +71,19 @@ export function CvEditor({
     return () => sub.unsubscribe();
   }, [form, persist]);
 
+  const router = useRouter();
+
   // Force a save so AI generation reads the latest answers from the DB.
   async function flush() {
     await saveCv(documentId, getValues());
     setStatus("saved");
+  }
+
+  // Persist the latest input before navigating to the preview.
+  async function goToPreview() {
+    setStatus("saving");
+    await flush();
+    router.push(`/documents/${documentId}/preview`);
   }
 
   function applyTo(name: keyof CvFormValues, text: string) {
@@ -102,11 +111,9 @@ export function CvEditor({
         </div>
         <div className="flex items-center gap-1">
           <VersionSaveButton documentId={documentId} />
-          <Button asChild variant="outline" size="sm">
-            <Link href={`/documents/${documentId}/preview`}>
-              <Eye className="size-4" />
-              {te("preview")}
-            </Link>
+          <Button variant="outline" size="sm" onClick={goToPreview}>
+            <Eye className="size-4" />
+            {te("preview")}
           </Button>
         </div>
       </div>
@@ -431,11 +438,9 @@ export function CvEditor({
               <ChevronRight className="size-4" />
             </Button>
           ) : (
-            <Button asChild>
-              <Link href={`/documents/${documentId}/preview`}>
-                <Eye className="size-4" />
-                {te("preview")}
-              </Link>
+            <Button onClick={goToPreview}>
+              <Eye className="size-4" />
+              {te("preview")}
             </Button>
           )}
         </div>

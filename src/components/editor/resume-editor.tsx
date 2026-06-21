@@ -12,7 +12,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { Link } from "@/i18n/navigation";
+import { useRouter } from "@/i18n/navigation";
 import {
   computeResumeCompletion,
   isValidEmail,
@@ -52,9 +52,19 @@ export function ResumeEditor({
     defaultValues: initialValues,
     mode: "onChange",
   });
-  const { register, control, watch, setValue, formState } = form;
+  const { register, control, watch, setValue, getValues, formState } = form;
   const errors = formState.errors;
   const educations = useFieldArray({ control, name: "educations" });
+  const router = useRouter();
+
+  // Flush the pending autosave before navigating to the preview, so the latest
+  // input (e.g. just-typed education) is already persisted when it loads.
+  async function goToPreview() {
+    setStatus("saving");
+    await saveResume(documentId, getValues());
+    setStatus("saved");
+    router.push(`/documents/${documentId}/preview`);
+  }
 
   const values = watch();
   const completion = computeResumeCompletion(values as ResumeFormValues);
@@ -92,11 +102,9 @@ export function ResumeEditor({
         </div>
         <div className="flex items-center gap-1">
           <VersionSaveButton documentId={documentId} />
-          <Button asChild variant="outline" size="sm">
-            <Link href={`/documents/${documentId}/preview`}>
-              <Eye className="size-4" />
-              {t("preview")}
-            </Link>
+          <Button variant="outline" size="sm" onClick={goToPreview}>
+            <Eye className="size-4" />
+            {t("preview")}
           </Button>
         </div>
       </div>
@@ -216,9 +224,6 @@ export function ResumeEditor({
             </Field>
             <Field label={t("currentAddress")} required>
               <Input {...register("currentAddress")} />
-            </Field>
-            <Field label={t("contactAddress")} optional>
-              <Input {...register("contactAddress")} />
             </Field>
           </StepCard>
         )}
@@ -401,11 +406,9 @@ export function ResumeEditor({
               <ChevronRight className="size-4" />
             </Button>
           ) : (
-            <Button asChild>
-              <Link href={`/documents/${documentId}/preview`}>
-                <Eye className="size-4" />
-                {t("preview")}
-              </Link>
+            <Button onClick={goToPreview}>
+              <Eye className="size-4" />
+              {t("preview")}
             </Button>
           )}
         </div>

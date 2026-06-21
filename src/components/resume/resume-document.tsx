@@ -79,12 +79,6 @@ export function ResumeDocument({ values }: { values: ResumeFormValues }) {
             <th>メール</th>
             <td colSpan={2}>{values.email}</td>
           </tr>
-          {values.contactAddress ? (
-            <tr>
-              <th>連絡先</th>
-              <td colSpan={4}>{values.contactAddress}</td>
-            </tr>
-          ) : null}
         </tbody>
       </table>
 

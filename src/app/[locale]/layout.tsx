@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { Metadata } from "next";
-import { Noto_Sans_JP } from "next/font/google";
+import { Noto_Sans_JP, Quicksand } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
@@ -15,17 +15,25 @@ const notoSansJp = Noto_Sans_JP({
   display: "swap",
 });
 
+// Rounded geometric font used only for the JobseeQ wordmark.
+const quicksand = Quicksand({
+  subsets: ["latin"],
+  weight: ["700"],
+  variable: "--font-logo",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("http://localhost:3000"),
   title: {
-    default: "シゴトドキ — 在日外国人のための履歴書・職務経歴書ビルダー",
-    template: "%s ｜ シゴトドキ",
+    default: "JobseeQ — 在日外国人のための履歴書・職務経歴書ビルダー",
+    template: "%s ｜ JobseeQ",
   },
   description:
     "在留資格や母語にあわせて、日本企業に出せる履歴書・職務経歴書をかんたんに作成し、PDFで出力できます。",
-  applicationName: "シゴトドキ",
+  applicationName: "JobseeQ",
   openGraph: {
-    title: "シゴトドキ — 在日外国人のための履歴書・職務経歴書ビルダー",
+    title: "JobseeQ — 在日外国人のための履歴書・職務経歴書ビルダー",
     description:
       "在留資格や母語にあわせて、日本企業に出せる履歴書・職務経歴書をかんたんに作成。最後はそのままPDFで出力できます。",
     type: "website",
@@ -55,7 +63,10 @@ export default async function LocaleLayout({
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} className={`${notoSansJp.variable} h-full antialiased`}>
+    <html
+      lang={locale}
+      className={`${notoSansJp.variable} ${quicksand.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
         <Toaster position="top-center" richColors closeButton />

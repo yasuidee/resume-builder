@@ -4,6 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { Logo } from "@/components/logo";
 import { FileText, Languages, Sparkles, ShieldCheck } from "lucide-react";
 
 export default async function LandingPage({
@@ -30,9 +31,7 @@ function Landing() {
     <main className="flex-1">
       {/* Top bar */}
       <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
-        <span className="text-lg font-bold tracking-tight text-slate-900">
-          {c("appName")}
-        </span>
+        <Logo className="h-8 w-auto sm:h-9" />
         <LanguageSwitcher />
       </div>
 

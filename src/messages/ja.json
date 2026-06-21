@@ -1,0 +1,50 @@
+{
+  "Common": {
+    "appName": "シゴトドキ",
+    "tagline": "日本ではたらく あなたの履歴書・職務経歴書を、やさしく。",
+    "loading": "読み込み中…",
+    "save": "保存",
+    "cancel": "キャンセル",
+    "back": "もどる",
+    "next": "つぎへ",
+    "optional": "任意",
+    "required": "必須"
+  },
+  "Nav": {
+    "dashboard": "マイページ",
+    "newDocument": "新しく作る",
+    "privacy": "プライバシー設定",
+    "signIn": "ログイン"
+  },
+  "Marketing": {
+    "heroTitle": "日本での仕事さがしを、履歴書づくりから。",
+    "heroSubtitle": "在留資格や母語にあわせて、日本企業に出せる履歴書・職務経歴書をかんたんに作成。最後はそのままPDFで出力できます。",
+    "ctaPrimary": "無料で履歴書を作る",
+    "ctaSecondary": "サービスについて",
+    "point1Title": "あなたの言葉で入力",
+    "point1Body": "日本語・英語・中国語・ベトナム語で入力できます。仕上がりは自然な日本語に。",
+    "point2Title": "AIがやさしくサポート",
+    "point2Body": "AIは入力した事実だけを整えます。経歴を勝手に作ることはありません。",
+    "point3Title": "そのままPDFで提出",
+    "point3Body": "日本の様式に合った履歴書・職務経歴書をPDFで出力。文字化けの心配もありません。",
+    "trustNote": "履歴書づくりと、求人紹介への情報利用は別々です。紹介に同意しなくても、作成とPDF出力はすべて使えます。"
+  },
+  "Dashboard": {
+    "title": "マイページ",
+    "greeting": "こんにちは、{name} さん",
+    "newDocument": "新しい書類を作る",
+    "empty": "まだ書類がありません。「新しい書類を作る」から始めましょう。",
+    "documentsHeading": "あなたの書類",
+    "updatedAt": "最終更新",
+    "status": "状態",
+    "statusDraft": "下書き",
+    "statusCompleted": "完成",
+    "typeResume": "履歴書",
+    "typeCv": "職務経歴書",
+    "open": "ひらく",
+    "consentStatus": "求人紹介の同意",
+    "consentOn": "同意あり",
+    "consentOff": "同意なし",
+    "pdfHistory": "PDF出力の履歴"
+  }
+}

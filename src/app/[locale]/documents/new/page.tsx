@@ -18,8 +18,7 @@ export default async function NewDocumentPage({
         <h1 className="text-2xl font-bold text-slate-900">{t("title")}</h1>
         <p className="mt-2 text-slate-600">{t("subtitle")}</p>
         <div className="mt-8">
-          {/* CV is enabled from Phase 2 onward. */}
-          <DocumentTypePicker cvEnabled={false} />
+          <DocumentTypePicker cvEnabled={true} />
         </div>
       </main>
     </>

@@ -2,12 +2,26 @@
 
 import { and, eq } from "drizzle-orm";
 import { getDb } from "@/db";
-import { documents, profiles, educations, auditLogs } from "@/db/schema";
+import {
+  documents,
+  profiles,
+  educations,
+  workExperiences,
+  skills,
+  certifications,
+  jobPreferences,
+  auditLogs,
+} from "@/db/schema";
 import { requireUser } from "@/lib/auth";
 import {
   resumeFormSchema,
   computeResumeCompletion,
 } from "@/lib/validation/resume";
+import {
+  cvFormSchema,
+  computeCvCompletion,
+  parseSkills,
+} from "@/lib/validation/cv";
 
 export type DocumentType = "resume" | "cv";
 
@@ -106,6 +120,119 @@ export async function saveResume(
   }
 
   const score = computeResumeCompletion(v);
+  await db
+    .update(documents)
+    .set({ completionScore: score, updatedAt: now })
+    .where(eq(documents.id, documentId));
+
+  return { ok: true, score };
+}
+
+// Autosave handler for the CV editor (Steps 4–6).
+export async function saveCv(
+  documentId: string,
+  values: unknown,
+): Promise<{ ok: true; score: number } | { ok: false; error: string }> {
+  const user = await requireUser();
+  const parsed = cvFormSchema.safeParse(values);
+  if (!parsed.success) return { ok: false, error: "invalid_input" };
+  const v = parsed.data;
+  const db = await getDb();
+
+  const [doc] = await db
+    .select({ id: documents.id })
+    .from(documents)
+    .where(and(eq(documents.id, documentId), eq(documents.userId, user.id)))
+    .limit(1);
+  if (!doc) return { ok: false, error: "not_found" };
+
+  const now = new Date();
+
+  // Replace work experiences.
+  await db
+    .delete(workExperiences)
+    .where(eq(workExperiences.userId, user.id));
+  if (v.works.length > 0) {
+    await db.insert(workExperiences).values(
+      v.works.map((w, i) => ({
+        userId: user.id,
+        companyName: w.companyName || null,
+        companyNameJa: w.companyNameJa || null,
+        country: w.country || null,
+        department: w.department || null,
+        position: w.position || null,
+        employmentType: w.employmentType || null,
+        startDate: w.startDate || null,
+        endDate: w.endDate || null,
+        isCurrent: w.isCurrent,
+        description: w.description || null,
+        achievements: w.achievements || null,
+        tools: w.tools || null,
+        sortOrder: i,
+      })),
+    );
+  }
+
+  // Replace skill tags.
+  await db.delete(skills).where(eq(skills.userId, user.id));
+  const tags = parseSkills(v.skillsText);
+  if (tags.length > 0) {
+    await db.insert(skills).values(
+      tags.map((name, i) => ({
+        userId: user.id,
+        category: "tag",
+        name,
+        sortOrder: i,
+      })),
+    );
+  }
+
+  // Replace certifications.
+  await db.delete(certifications).where(eq(certifications.userId, user.id));
+  const validCerts = v.certifications.filter((c) => c.name.trim() !== "");
+  if (validCerts.length > 0) {
+    await db.insert(certifications).values(
+      validCerts.map((c, i) => ({
+        userId: user.id,
+        name: c.name,
+        issuer: c.issuer || null,
+        acquiredDate: c.acquiredDate || null,
+        sortOrder: i,
+      })),
+    );
+  }
+
+  // Upsert the single job-preferences row.
+  await db
+    .insert(jobPreferences)
+    .values({
+      userId: user.id,
+      desiredJobType: v.desiredJob || null,
+      desiredLocation: v.desiredLocation || null,
+      desiredEmploymentType: v.desiredEmploymentType || null,
+      availableFrom: v.availableFrom || null,
+      prAnswers: v.prAnswers,
+      careerSummary: v.careerSummary || null,
+      selfPr: v.selfPr || null,
+      motivation: v.motivation || null,
+      updatedAt: now,
+    })
+    .onConflictDoUpdate({
+      target: jobPreferences.userId,
+      set: {
+        desiredJobType: v.desiredJob || null,
+        desiredLocation: v.desiredLocation || null,
+        desiredEmploymentType: v.desiredEmploymentType || null,
+        availableFrom: v.availableFrom || null,
+        prAnswers: v.prAnswers,
+        careerSummary: v.careerSummary || null,
+        selfPr: v.selfPr || null,
+        motivation: v.motivation || null,
+        updatedAt: now,
+      },
+    });
+
+  const score = computeCvCompletion(v);
   await db
     .update(documents)
     .set({ completionScore: score, updatedAt: now })

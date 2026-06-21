@@ -2,11 +2,12 @@ import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { getCurrentUser } from "@/lib/auth";
 import { getDocumentForUser, loadResumeValues } from "@/lib/resume";
+import { loadCvValues } from "@/lib/cv";
 import { ResumeDocument } from "@/components/resume/resume-document";
+import { CvDocument } from "@/components/resume/cv-document";
 import { resumeCss } from "@/components/resume/resume-styles";
 
 // Chrome-less page used only as the source for Playwright PDF generation.
-// Renders the same ResumeDocument as the preview, so the PDF always matches.
 export default async function PrintPage({
   params,
 }: {
@@ -20,8 +21,6 @@ export default async function PrintPage({
   const doc = await getDocumentForUser(id, user.id);
   if (!doc) notFound();
 
-  const values = await loadResumeValues(user.id);
-
   return (
     <>
       <style
@@ -29,7 +28,11 @@ export default async function PrintPage({
           __html: `html,body{background:#fff;margin:0;padding:0;}${resumeCss}`,
         }}
       />
-      <ResumeDocument values={values} />
+      {doc.type === "cv" ? (
+        <CvDocument values={await loadCvValues(user.id)} />
+      ) : (
+        <ResumeDocument values={await loadResumeValues(user.id)} />
+      )}
     </>
   );
 }

@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
 import { getDb } from "@/db";
-import { jobPreferences, pdfExports, auditLogs } from "@/db/schema";
+import { profiles, jobPreferences, pdfExports, auditLogs } from "@/db/schema";
 import { getCurrentUser } from "@/lib/auth";
-import { getDocumentForUser, loadResumeValues } from "@/lib/resume";
-import { buildResumeFileName } from "@/lib/pdf/render";
+import { getDocumentForUser } from "@/lib/resume";
+import { buildPdfFileName, type DocKind } from "@/lib/pdf/render";
 import { urlToPdf } from "@/lib/pdf/playwright";
 
 export const runtime = "nodejs";
@@ -23,39 +23,47 @@ export async function GET(request: Request) {
   if (!doc) return new Response("Not found", { status: 404 });
 
   const db = await getDb();
-  const values = await loadResumeValues(user.id);
+  const [profile] = await db
+    .select({ fullName: profiles.fullName })
+    .from(profiles)
+    .where(eq(profiles.userId, user.id))
+    .limit(1);
   const [pref] = await db
     .select({ desiredJobType: jobPreferences.desiredJobType })
     .from(jobPreferences)
     .where(eq(jobPreferences.userId, user.id))
     .limit(1);
 
-  // Navigate Playwright to the chrome-less print page (same origin).
+  const kind = (doc.type === "cv" ? "cv" : "resume") as DocKind;
+
+  // Playwright renders the chrome-less /print page (it branches by doc type).
   const printUrl = `${url.origin}/documents/${doc.id}/print`;
   const pdf = await urlToPdf(printUrl);
-  const fileName = buildResumeFileName(values, pref?.desiredJobType);
+  const fileName = buildPdfFileName(
+    kind,
+    profile?.fullName,
+    pref?.desiredJobType,
+  );
 
-  // Record the export + audit trail.
   await db.insert(pdfExports).values({
     userId: user.id,
     documentId: doc.id,
     fileName,
-    kind: "resume",
+    kind,
   });
   await db.insert(auditLogs).values({
     userId: user.id,
     action: "pdf.export",
     targetId: doc.id,
-    metadata: { fileName, kind: "resume" },
+    metadata: { fileName, kind },
   });
 
-  // RFC 5987 encoding so the Japanese filename survives the header.
   const encoded = encodeURIComponent(fileName);
   return new Response(pdf as BodyInit, {
     status: 200,
     headers: {
       "Content-Type": "application/pdf",
-      "Content-Disposition": `attachment; filename="resume.pdf"; filename*=UTF-8''${encoded}`,
+      "Content-Disposition": `attachment; filename="document.pdf"; filename*=UTF-8''${encoded}`,
       "Cache-Control": "no-store",
     },
   });

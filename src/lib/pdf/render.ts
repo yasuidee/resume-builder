@@ -1,14 +1,16 @@
-import type { ResumeFormValues } from "@/lib/validation/resume";
+export type DocKind = "resume" | "cv";
 
-export function buildResumeFileName(
-  values: ResumeFormValues,
+export function buildPdfFileName(
+  kind: DocKind,
+  fullName: string | null | undefined,
   desiredJob?: string | null,
 ): string {
-  const name = (values.fullName || "無題").replace(/\s+/g, "");
+  const name = (fullName || "無題").replace(/\s+/g, "");
   const d = new Date();
   const ymd = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}${String(
     d.getDate(),
   ).padStart(2, "0")}`;
   const job = desiredJob && desiredJob.trim() ? `_${desiredJob.trim()}` : "";
-  return `履歴書_${name}${job}_${ymd}.pdf`;
+  const prefix = kind === "cv" ? "職務経歴書" : "履歴書";
+  return `${prefix}_${name}${job}_${ymd}.pdf`;
 }

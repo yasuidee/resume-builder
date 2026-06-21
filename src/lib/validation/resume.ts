@@ -1,6 +1,33 @@
 import { z } from "zod";
 
 export const GENDERS = ["unspecified", "male", "female", "other"] as const;
+
+// 日本語レベル（JLPTベース）と母語の選択肢
+export const JAPANESE_LEVELS = [
+  "N1",
+  "N2",
+  "N3",
+  "N4",
+  "N5",
+  "試験前",
+] as const;
+
+export const NATIVE_LANGUAGES = [
+  "ベトナム語",
+  "中国語",
+  "英語",
+  "韓国語",
+  "ネパール語",
+  "インドネシア語",
+  "タガログ語",
+  "ミャンマー語",
+  "タイ語",
+  "モンゴル語",
+  "ポルトガル語",
+  "スペイン語",
+  "日本語",
+  "その他",
+] as const;
 export const EDU_STATUSES = [
   "graduated",
   "expected",

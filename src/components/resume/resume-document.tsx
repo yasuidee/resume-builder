@@ -32,12 +32,22 @@ export function ResumeDocument({ values }: { values: ResumeFormValues }) {
 
       <table className="rk-table rk-top">
         <tbody>
+          {/* ふりがな is a thin strip above 氏名; the photo only spans 氏名+生年月日 */}
           <tr>
             <th>ふりがな</th>
-            <td colSpan={3}>
+            <td colSpan={4} style={{ verticalAlign: "middle" }}>
               <span className="rk-furigana">{values.fullNameKana}</span>
             </td>
-            <td rowSpan={3} className="rk-photo">
+          </tr>
+          <tr style={{ height: "18mm" }}>
+            <th>氏　名</th>
+            <td colSpan={3} style={{ verticalAlign: "middle" }}>
+              <span className="rk-name">{values.fullName || "　"}</span>
+              {values.romajiName ? (
+                <span className="rk-furigana">　（{values.romajiName}）</span>
+              ) : null}
+            </td>
+            <td rowSpan={2} className="rk-photo">
               {values.photoUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -50,16 +60,7 @@ export function ResumeDocument({ values }: { values: ResumeFormValues }) {
               )}
             </td>
           </tr>
-          <tr>
-            <th>氏　名</th>
-            <td colSpan={3}>
-              <span className="rk-name">{values.fullName || "　"}</span>
-              {values.romajiName ? (
-                <span className="rk-furigana">　（{values.romajiName}）</span>
-              ) : null}
-            </td>
-          </tr>
-          <tr>
+          <tr style={{ height: "14mm" }}>
             <th>生年月日</th>
             <td>
               {formatBirth(values.birthDate)}
@@ -147,8 +148,11 @@ export function ResumeDocument({ values }: { values: ResumeFormValues }) {
               <tr>
                 <th>日本語</th>
                 <td>
-                  {values.japaneseLevel}
-                  {values.jlpt ? `（JLPT ${values.jlpt}）` : ""}
+                  {/^N[1-5]$/.test(values.japaneseLevel)
+                    ? `日本語能力試験 ${values.japaneseLevel}`
+                    : values.japaneseLevel === "試験前"
+                      ? "日本語能力試験 受験前"
+                      : values.japaneseLevel}
                 </td>
               </tr>
               {values.nativeLanguage ? (

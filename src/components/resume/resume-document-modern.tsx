@@ -96,8 +96,11 @@ export function ResumeDocumentModern({
           <div className="rkm-kv">
             <div className="rkm-kv-label">日本語</div>
             <div>
-              {values.japaneseLevel}
-              {values.jlpt ? `（JLPT ${values.jlpt}）` : ""}
+              {/^N[1-5]$/.test(values.japaneseLevel)
+                ? `日本語能力試験 ${values.japaneseLevel}`
+                : values.japaneseLevel === "試験前"
+                  ? "日本語能力試験 受験前"
+                  : values.japaneseLevel}
             </div>
           </div>
           {values.nativeLanguage ? (

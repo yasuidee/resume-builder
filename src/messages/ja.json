@@ -87,6 +87,7 @@
     "autosaveSaving": "保存中…",
     "autosaveSaved": "保存しました",
     "autosaveIdle": "自動保存",
+    "selectPlaceholder": "選択してください",
     "preview": "プレビュー",
     "completion": "完成度",
     "stepOf": "ステップ {current} / {total}",

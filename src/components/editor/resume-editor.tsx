@@ -18,6 +18,8 @@ import {
   isValidEmail,
   GENDERS,
   EDU_STATUSES,
+  JAPANESE_LEVELS,
+  NATIVE_LANGUAGES,
   type ResumeFormValues,
 } from "@/lib/validation/resume";
 import { saveResume } from "@/lib/actions/documents";
@@ -236,26 +238,27 @@ export function ResumeEditor({
             </Field>
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label={t("japaneseLevel")} required>
-                <Input
-                  {...register("japaneseLevel")}
-                  placeholder="日常会話／ビジネス など"
-                />
+                <Select {...register("japaneseLevel")}>
+                  <option value="">{t("selectPlaceholder")}</option>
+                  {JAPANESE_LEVELS.map((lv) => (
+                    <option key={lv} value={lv}>
+                      {lv === "試験前" ? "試験前（受験前）" : `JLPT ${lv}`}
+                    </option>
+                  ))}
+                </Select>
               </Field>
-              <Field label={t("jlpt")} optional>
-                <Select {...register("jlpt")}>
-                  <option value="">—</option>
-                  {["N1", "N2", "N3", "N4", "N5"].map((n) => (
-                    <option key={n} value={n}>
-                      {n}
+              <Field label={t("nativeLanguage")} required>
+                <Select {...register("nativeLanguage")}>
+                  <option value="">{t("selectPlaceholder")}</option>
+                  {NATIVE_LANGUAGES.map((lang) => (
+                    <option key={lang} value={lang}>
+                      {lang}
                     </option>
                   ))}
                 </Select>
               </Field>
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field label={t("nativeLanguage")} required>
-                <Input {...register("nativeLanguage")} />
-              </Field>
               <Field label={t("englishLevel")} optional>
                 <Input {...register("englishLevel")} />
               </Field>

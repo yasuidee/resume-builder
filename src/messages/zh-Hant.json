@@ -1,1 +1,60 @@
-{}
+{
+  "Common": {
+    "appName": "ShigotoDoki",
+    "tagline": "讓你的日文履歷書和職務經歷書變簡單。",
+    "loading": "載入中…",
+    "save": "儲存",
+    "cancel": "取消",
+    "back": "返回",
+    "next": "下一步",
+    "optional": "選填",
+    "required": "必填"
+  },
+  "Nav": {
+    "dashboard": "我的頁面",
+    "newDocument": "新增",
+    "privacy": "隱私設定",
+    "signIn": "登入"
+  },
+  "Marketing": {
+    "heroTitle": "在日本求職，從製作履歷書開始。",
+    "heroSubtitle": "根據你的在留資格和母語，製作日本企業認可的履歷書和職務經歷書。最後可直接匯出 PDF。",
+    "ctaPrimary": "免費製作履歷書",
+    "ctaSecondary": "關於本服務",
+    "point1Title": "用你的語言輸入",
+    "point1Body": "可用日語、英語、中文或越南語輸入，成品為自然的日語。",
+    "point2Title": "AI 溫和輔助",
+    "point2Body": "AI 只整理你輸入的內容，絕不會擅自編造你沒有寫的經歷。",
+    "point3Title": "直接匯出 PDF",
+    "point3Body": "產生符合日本格式的履歷書和職務經歷書 PDF，不會出現亂碼。",
+    "trustNote": "製作文件與將資訊用於求職推薦是分開的。即使不同意推薦，製作和匯出 PDF 也都能正常使用。"
+  },
+  "Dashboard": {
+    "title": "我的頁面",
+    "greeting": "你好，{name}",
+    "newDocument": "新增文件",
+    "empty": "你還沒有文件。請從「新增文件」開始。",
+    "documentsHeading": "你的文件",
+    "updatedAt": "最後更新",
+    "status": "狀態",
+    "statusDraft": "草稿",
+    "statusCompleted": "已完成",
+    "typeResume": "履歷書",
+    "typeCv": "職務經歷書",
+    "open": "開啟",
+    "consentStatus": "求職推薦同意",
+    "consentOn": "已同意",
+    "consentOff": "未同意",
+    "pdfHistory": "PDF 匯出紀錄"
+  },
+  "NewDocument": {
+    "title": "新增文件",
+    "subtitle": "請選擇要建立的文件。內容隨時可以編輯。",
+    "resumeTitle": "履歷書",
+    "resumeDesc": "日本最常用的文件：姓名、學歷、工作經歷和應徵動機。",
+    "cvTitle": "職務經歷書",
+    "cvDesc": "用於詳細介紹工作內容和業績的文件。",
+    "create": "建立此文件",
+    "cvComingSoon": "職務經歷書即將支援"
+  }
+}

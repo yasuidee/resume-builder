@@ -24,6 +24,10 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
+// Pages read from the database (PGlite) at request time, so they must render
+// dynamically rather than be prerendered at build.
+export const dynamic = "force-dynamic";
+
 export default async function LocaleLayout({
   children,
   params,

@@ -45,7 +45,9 @@
     "consentStatus": "求人紹介の同意",
     "consentOn": "同意あり",
     "consentOff": "同意なし",
-    "pdfHistory": "PDF出力の履歴"
+    "pdfHistory": "PDF出力の履歴",
+    "downloadSet": "履歴書＋職務経歴書をまとめてPDF",
+    "generatingSet": "まとめPDFを作成中…"
   },
   "NewDocument": {
     "title": "新しい書類を作る",
@@ -221,5 +223,56 @@
     "noIssues": "気になる点は見つかりませんでした。",
     "issuesFound": "{count}件の気になる点があります",
     "checkedNote": "確認した項目：{count}件"
+  },
+  "Versions": {
+    "save": "履歴に保存",
+    "saved": "履歴に保存しました",
+    "history": "編集履歴",
+    "title": "編集履歴",
+    "empty": "まだ履歴がありません。編集画面の「履歴に保存」で保存できます。",
+    "versionLabel": "バージョン {n}",
+    "restore": "この版に戻す",
+    "restored": "戻しました",
+    "backToEdit": "編集にもどる",
+    "savedAt": "保存日時"
+  },
+  "Consent": {
+    "modalTitle": "求人紹介サポートを受け取りますか？",
+    "modalBody": "作成した情報を使って、あなたに合う求人や転職サポートを受け取ることができます。利用しなくても、履歴書・職務経歴書の作成とPDF出力はそのまま使えます。",
+    "careerSupport": "任意：登録したプロフィール・履歴書・職務経歴書の情報を、求人案内、キャリア相談、仕事紹介のために利用することに同意します。",
+    "thirdParty": "応募を希望した求人について、応募先企業へ必要な情報を提供することに同意します。企業へ提供する前に、提供先企業名と提供項目を確認できます。",
+    "agree": "同意して続ける",
+    "skip": "今はしない（PDFはダウンロード済み）",
+    "note": "同意はいつでもプライバシー設定から変更・撤回できます。"
+  },
+  "Privacy": {
+    "title": "プライバシー設定",
+    "subtitle": "あなたの情報の使い方を、いつでも確認・変更できます。",
+    "purposeTitle": "情報の利用目的",
+    "purposeBody": "履歴書・職務経歴書の作成とPDF出力のために情報を保存します。求人紹介への利用は、下の同意がある場合のみ行います。",
+    "careerSupportTitle": "求人紹介への情報利用",
+    "careerSupportDesc": "プロフィール・履歴書・職務経歴書の情報を、求人案内・キャリア相談・仕事紹介のために利用します。",
+    "thirdPartyTitle": "応募先企業への情報提供",
+    "thirdPartyDesc": "応募を希望した求人について、応募先企業へ必要な情報を提供します。提供前に企業名と項目を確認できます。",
+    "granted": "同意あり",
+    "notGranted": "同意なし",
+    "grant": "同意する",
+    "withdraw": "撤回する",
+    "historyTitle": "同意の履歴",
+    "deleteTitle": "データの削除",
+    "deleteDesc": "作成した履歴書・職務経歴書とプロフィール情報を削除します。この操作は取り消せません。",
+    "deleteButton": "私のデータを削除する",
+    "deleteConfirm": "本当に削除しますか？この操作は取り消せません。",
+    "deleted": "データを削除しました。"
+  },
+  "Admin": {
+    "title": "候補者一覧",
+    "subtitle": "求人紹介に同意した方のみ表示しています。",
+    "name": "氏名",
+    "desiredJob": "希望職種",
+    "japanese": "日本語",
+    "updatedAt": "最終更新",
+    "empty": "求人紹介に同意した候補者はまだいません。",
+    "forbidden": "この画面を表示する権限がありません。"
   }
 }

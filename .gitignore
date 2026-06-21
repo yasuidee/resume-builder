@@ -26,6 +26,11 @@
 
 # local PGlite database
 /.pglite
+/.pglite-e2e
+
+# playwright
+/test-results
+/playwright-report
 
 # debug
 npm-debug.log*

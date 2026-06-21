@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
+import { LanguageSwitcher } from "@/components/language-switcher";
 
 export function SiteHeader() {
   const t = useTranslations("Nav");
@@ -13,6 +14,7 @@ export function SiteHeader() {
           {c("appName")}
         </Link>
         <nav className="flex items-center gap-1">
+          <LanguageSwitcher />
           <Button asChild variant="ghost" size="sm">
             <Link href="/dashboard">{t("dashboard")}</Link>
           </Button>

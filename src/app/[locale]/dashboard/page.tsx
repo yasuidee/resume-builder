@@ -5,6 +5,7 @@ import { getDb } from "@/db";
 import { documents, pdfExports, consents } from "@/db/schema";
 import { getCurrentUser } from "@/lib/auth";
 import { SiteHeader } from "@/components/site-header";
+import { SetPdfButton } from "@/components/resume/set-pdf-button";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FilePlus2, FileText } from "lucide-react";
@@ -72,7 +73,14 @@ export default async function DashboardPage({
               {t("newDocument")}
             </Link>
           </Button>
-          <span className="text-sm text-slate-500">
+          {docs.some((d) => d.type === "resume") &&
+            docs.some((d) => d.type === "cv") && (
+              <SetPdfButton documentId={docs[0].id} />
+            )}
+          <Link
+            href="/settings/privacy"
+            className="text-sm text-slate-500 underline-offset-2 hover:underline"
+          >
             {t("consentStatus")}：
             <span
               className={
@@ -81,7 +89,7 @@ export default async function DashboardPage({
             >
               {careerSupportGranted ? t("consentOn") : t("consentOff")}
             </span>
-          </span>
+          </Link>
         </div>
 
         <section className="mt-8">

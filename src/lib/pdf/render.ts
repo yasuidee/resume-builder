@@ -1,4 +1,4 @@
-export type DocKind = "resume" | "cv";
+export type DocKind = "resume" | "cv" | "set";
 
 export function buildPdfFileName(
   kind: DocKind,
@@ -11,6 +11,7 @@ export function buildPdfFileName(
     d.getDate(),
   ).padStart(2, "0")}`;
   const job = desiredJob && desiredJob.trim() ? `_${desiredJob.trim()}` : "";
-  const prefix = kind === "cv" ? "職務経歴書" : "履歴書";
+  const prefix =
+    kind === "set" ? "応募書類" : kind === "cv" ? "職務経歴書" : "履歴書";
   return `${prefix}_${name}${job}_${ymd}.pdf`;
 }

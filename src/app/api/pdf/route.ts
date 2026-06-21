@@ -34,10 +34,17 @@ export async function GET(request: Request) {
     .where(eq(jobPreferences.userId, user.id))
     .limit(1);
 
-  const kind = (doc.type === "cv" ? "cv" : "resume") as DocKind;
+  const isSet = url.searchParams.get("set") === "1";
+  const kind = (isSet
+    ? "set"
+    : doc.type === "cv"
+      ? "cv"
+      : "resume") as DocKind;
 
   // Playwright renders the chrome-less /print page (it branches by doc type).
-  const printUrl = `${url.origin}/documents/${doc.id}/print`;
+  const printUrl = `${url.origin}/documents/${doc.id}/print${
+    isSet ? "?set=1" : ""
+  }`;
   const pdf = await urlToPdf(printUrl);
   const fileName = buildPdfFileName(
     kind,

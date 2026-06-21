@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
+import { VersionSaveButton } from "@/components/editor/version-save-button";
 import { cn } from "@/lib/utils";
 
 type SaveStatus = "idle" | "saving" | "saved";
@@ -84,12 +85,15 @@ export function ResumeEditor({
             <span>{t("autosaveIdle")}</span>
           )}
         </div>
-        <Button asChild variant="outline" size="sm">
-          <Link href={`/documents/${documentId}/preview`}>
-            <Eye className="size-4" />
-            {t("preview")}
-          </Link>
-        </Button>
+        <div className="flex items-center gap-1">
+          <VersionSaveButton documentId={documentId} />
+          <Button asChild variant="outline" size="sm">
+            <Link href={`/documents/${documentId}/preview`}>
+              <Eye className="size-4" />
+              {t("preview")}
+            </Link>
+          </Button>
+        </div>
       </div>
 
       {/* Completion */}

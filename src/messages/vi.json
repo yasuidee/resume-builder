@@ -1,1 +1,60 @@
-{}
+{
+  "Common": {
+    "appName": "ShigotoDoki",
+    "tagline": "Sơ yếu lý lịch & CV tiếng Nhật của bạn, thật đơn giản.",
+    "loading": "Đang tải…",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "optional": "Tùy chọn",
+    "required": "Bắt buộc"
+  },
+  "Nav": {
+    "dashboard": "Trang của tôi",
+    "newDocument": "Tạo mới",
+    "privacy": "Cài đặt quyền riêng tư",
+    "signIn": "Đăng nhập"
+  },
+  "Marketing": {
+    "heroTitle": "Bắt đầu tìm việc tại Nhật từ chiếc sơ yếu lý lịch.",
+    "heroSubtitle": "Tạo sơ yếu lý lịch và CV mà công ty Nhật chấp nhận — phù hợp với tư cách lưu trú và tiếng mẹ đẻ của bạn. Xuất ra PDF chỉ với một cú nhấp.",
+    "ctaPrimary": "Tạo sơ yếu lý lịch miễn phí",
+    "ctaSecondary": "Về dịch vụ này",
+    "point1Title": "Nhập bằng ngôn ngữ của bạn",
+    "point1Body": "Nhập thông tin bằng tiếng Nhật, Anh, Trung hoặc Việt. Kết quả là tiếng Nhật tự nhiên.",
+    "point2Title": "AI hỗ trợ nhẹ nhàng",
+    "point2Body": "AI chỉ chỉnh sửa những gì bạn đã nhập. Không bao giờ bịa ra kinh nghiệm bạn chưa viết.",
+    "point3Title": "Xuất PDF ngay",
+    "point3Body": "Tạo sơ yếu lý lịch và CV theo mẫu Nhật dưới dạng PDF — không lo lỗi font chữ.",
+    "trustNote": "Việc tạo hồ sơ và việc dùng dữ liệu để giới thiệu việc làm là tách biệt. Dù không đồng ý giới thiệu, bạn vẫn dùng đầy đủ chức năng tạo và xuất PDF."
+  },
+  "Dashboard": {
+    "title": "Trang của tôi",
+    "greeting": "Xin chào, {name}",
+    "newDocument": "Tạo hồ sơ mới",
+    "empty": "Bạn chưa có hồ sơ nào. Hãy bắt đầu từ \"Tạo hồ sơ mới\".",
+    "documentsHeading": "Hồ sơ của bạn",
+    "updatedAt": "Cập nhật lần cuối",
+    "status": "Trạng thái",
+    "statusDraft": "Bản nháp",
+    "statusCompleted": "Hoàn thành",
+    "typeResume": "Sơ yếu lý lịch",
+    "typeCv": "CV",
+    "open": "Mở",
+    "consentStatus": "Đồng ý giới thiệu việc làm",
+    "consentOn": "Đã đồng ý",
+    "consentOff": "Chưa đồng ý",
+    "pdfHistory": "Lịch sử xuất PDF"
+  },
+  "NewDocument": {
+    "title": "Tạo hồ sơ mới",
+    "subtitle": "Chọn loại hồ sơ bạn muốn tạo. Bạn có thể chỉnh sửa nội dung bất cứ lúc nào.",
+    "resumeTitle": "Sơ yếu lý lịch (Rirekisho)",
+    "resumeDesc": "Hồ sơ phổ biến nhất tại Nhật: họ tên, học vấn, kinh nghiệm và động lực ứng tuyển.",
+    "cvTitle": "CV (Shokumu-keirekisho)",
+    "cvDesc": "Hồ sơ mô tả chi tiết kinh nghiệm và thành tích công việc của bạn.",
+    "create": "Tạo hồ sơ này",
+    "cvComingSoon": "CV sẽ sớm được hỗ trợ"
+  }
+}

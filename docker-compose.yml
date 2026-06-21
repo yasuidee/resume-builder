@@ -1,0 +1,21 @@
+# Optional: a real PostgreSQL for parity with production.
+# Local development does NOT require this — by default the app uses an in-process
+# PGlite database (no Docker needed). To use this instead:
+#   1. docker compose up -d
+#   2. export DATABASE_URL=postgres://app:app@localhost:5432/resume_builder
+#   3. npm run dev
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+      POSTGRES_DB: resume_builder
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

@@ -3,6 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { LanguageSwitcher } from "@/components/language-switcher";
 import { FileText, Languages, Sparkles, ShieldCheck } from "lucide-react";
 
 export default async function LandingPage({
@@ -27,8 +28,16 @@ function Landing() {
 
   return (
     <main className="flex-1">
+      {/* Top bar */}
+      <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-4">
+        <span className="text-lg font-bold tracking-tight text-slate-900">
+          {c("appName")}
+        </span>
+        <LanguageSwitcher />
+      </div>
+
       {/* Hero */}
-      <section className="mx-auto max-w-5xl px-4 pb-16 pt-20 text-center">
+      <section className="mx-auto max-w-5xl px-4 pb-16 pt-12 text-center">
         <p className="mb-4 text-sm font-semibold text-indigo-600">
           {c("appName")}
         </p>

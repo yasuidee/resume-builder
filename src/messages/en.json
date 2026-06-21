@@ -1,1 +1,60 @@
-{}
+{
+  "Common": {
+    "appName": "ShigotoDoki",
+    "tagline": "Your Japanese resume & CV, made simple.",
+    "loading": "Loading…",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back",
+    "next": "Next",
+    "optional": "Optional",
+    "required": "Required"
+  },
+  "Nav": {
+    "dashboard": "My Page",
+    "newDocument": "Create new",
+    "privacy": "Privacy settings",
+    "signIn": "Sign in"
+  },
+  "Marketing": {
+    "heroTitle": "Start your job search in Japan with your resume.",
+    "heroSubtitle": "Create a resume and CV that Japanese companies accept — tailored to your residence status and native language. Export to PDF in one click.",
+    "ctaPrimary": "Create a resume for free",
+    "ctaSecondary": "About this service",
+    "point1Title": "Write in your own language",
+    "point1Body": "Enter your details in Japanese, English, Chinese, or Vietnamese. The result is natural Japanese.",
+    "point2Title": "Gentle AI support",
+    "point2Body": "The AI only refines what you entered. It never invents experience you didn't write.",
+    "point3Title": "Export to PDF as is",
+    "point3Body": "Produce a Japanese-format resume and CV as PDF — no garbled characters.",
+    "trustNote": "Creating documents and using your data for job referrals are kept separate. Even without consenting to referrals, document creation and PDF export work fully."
+  },
+  "Dashboard": {
+    "title": "My Page",
+    "greeting": "Hello, {name}",
+    "newDocument": "Create a new document",
+    "empty": "You have no documents yet. Start from \"Create a new document\".",
+    "documentsHeading": "Your documents",
+    "updatedAt": "Last updated",
+    "status": "Status",
+    "statusDraft": "Draft",
+    "statusCompleted": "Completed",
+    "typeResume": "Resume",
+    "typeCv": "CV",
+    "open": "Open",
+    "consentStatus": "Job referral consent",
+    "consentOn": "Granted",
+    "consentOff": "Not granted",
+    "pdfHistory": "PDF export history"
+  },
+  "NewDocument": {
+    "title": "Create a new document",
+    "subtitle": "Choose what you want to create. You can edit the content anytime.",
+    "resumeTitle": "Resume (Rirekisho)",
+    "resumeDesc": "The most common document in Japan: name, education, work history, and motivation.",
+    "cvTitle": "CV (Shokumu-keirekisho)",
+    "cvDesc": "A document to describe your work experience and achievements in detail.",
+    "create": "Create this document",
+    "cvComingSoon": "CV support is coming soon"
+  }
+}

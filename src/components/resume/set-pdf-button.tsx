@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { FileStack, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -9,6 +10,7 @@ import { Button } from "@/components/ui/button";
 // the set is rendered from the user's shared data.
 export function SetPdfButton({ documentId }: { documentId: string }) {
   const t = useTranslations("Dashboard");
+  const tt = useTranslations("Toast");
   const [loading, setLoading] = useState(false);
 
   async function download() {
@@ -28,8 +30,9 @@ export function SetPdfButton({ documentId }: { documentId: string }) {
       a.click();
       a.remove();
       URL.revokeObjectURL(objectUrl);
+      toast.success(tt("pdfReady"));
     } catch {
-      alert("PDFの作成に失敗しました。");
+      toast.error(tt("pdfError"));
     } finally {
       setLoading(false);
     }

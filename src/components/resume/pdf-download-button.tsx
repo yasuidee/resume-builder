@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations, useLocale } from "next-intl";
+import { toast } from "sonner";
 import { Download, Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { saveConsents } from "@/lib/actions/consent";
@@ -9,6 +10,7 @@ import { saveConsents } from "@/lib/actions/consent";
 export function PdfDownloadButton({ documentId }: { documentId: string }) {
   const t = useTranslations("Preview");
   const tc = useTranslations("Consent");
+  const tt = useTranslations("Toast");
   const locale = useLocale();
   const [loading, setLoading] = useState(false);
   const [showConsent, setShowConsent] = useState(false);
@@ -35,10 +37,11 @@ export function PdfDownloadButton({ documentId }: { documentId: string }) {
       a.remove();
       URL.revokeObjectURL(objectUrl);
 
+      toast.success(tt("pdfReady"));
       // The PDF is already in the user's hands before any consent prompt.
       setShowConsent(true);
     } catch {
-      alert("PDFの作成に失敗しました。もう一度お試しください。");
+      toast.error(tt("pdfError"));
     } finally {
       setLoading(false);
     }
@@ -52,6 +55,7 @@ export function PdfDownloadButton({ documentId }: { documentId: string }) {
         careerSupport: { granted: career, text: tc("careerSupport") },
         thirdParty: { granted: third, text: tc("thirdParty") },
       });
+      toast.success(tt("consentSaved"));
       setShowConsent(false);
     } finally {
       setSaving(false);

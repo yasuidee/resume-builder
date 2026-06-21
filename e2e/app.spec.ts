@@ -91,7 +91,9 @@ test("versions: saving checkpoints creates restorable versions", async ({
   await expect(page.getByText("保存しました")).toBeVisible();
 
   await page.getByRole("button", { name: "履歴に保存" }).click();
-  await expect(page.getByText("履歴に保存しました")).toBeVisible();
+  await expect(
+    page.getByRole("button", { name: "履歴に保存しました" }),
+  ).toBeVisible();
   await page.getByRole("button", { name: /履歴に保存$/ }).click();
 
   await page.goto(`/documents/${documentId}/versions`);

@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 
 export function StepCard({
   lead,
@@ -34,13 +33,21 @@ export function Field({
   hint?: string;
   children: ReactNode;
 }) {
+  // Wrapping the control in a <label> gives every field an accessible name
+  // without threading ids through react-hook-form's register().
   return (
-    <div className="grid gap-1.5">
-      <Label required={required} optional={optional}>
+    <label className="grid gap-1.5">
+      <span className="flex items-center gap-2 text-sm font-medium text-slate-800">
         {label}
-      </Label>
+        {required && <span className="text-xs text-red-500">必須</span>}
+        {optional && (
+          <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-normal text-slate-500">
+            任意
+          </span>
+        )}
+      </span>
       {children}
-      {hint && <p className="text-xs text-slate-400">{hint}</p>}
-    </div>
+      {hint && <span className="text-xs text-slate-400">{hint}</span>}
+    </label>
   );
 }

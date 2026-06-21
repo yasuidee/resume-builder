@@ -4,6 +4,7 @@ import { Noto_Sans_JP } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
+import { Toaster } from "sonner";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -15,9 +16,21 @@ const notoSansJp = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "シゴトドキ — 在日外国人のための履歴書・職務経歴書ビルダー",
+  metadataBase: new URL("http://localhost:3000"),
+  title: {
+    default: "シゴトドキ — 在日外国人のための履歴書・職務経歴書ビルダー",
+    template: "%s ｜ シゴトドキ",
+  },
   description:
     "在留資格や母語にあわせて、日本企業に出せる履歴書・職務経歴書をかんたんに作成し、PDFで出力できます。",
+  applicationName: "シゴトドキ",
+  openGraph: {
+    title: "シゴトドキ — 在日外国人のための履歴書・職務経歴書ビルダー",
+    description:
+      "在留資格や母語にあわせて、日本企業に出せる履歴書・職務経歴書をかんたんに作成。最後はそのままPDFで出力できます。",
+    type: "website",
+    locale: "ja_JP",
+  },
 };
 
 export function generateStaticParams() {
@@ -45,6 +58,7 @@ export default async function LocaleLayout({
     <html lang={locale} className={`${notoSansJp.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <Toaster position="top-center" richColors closeButton />
       </body>
     </html>
   );

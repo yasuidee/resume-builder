@@ -1,4 +1,21 @@
 {
+  "Toast": {
+    "pdfReady": "PDFをダウンロードしました",
+    "pdfError": "PDFの作成に失敗しました。もう一度お試しください。",
+    "versionSaved": "編集履歴に保存しました",
+    "versionRestored": "選んだ版に戻しました",
+    "consentSaved": "設定を保存しました",
+    "applied": "反映しました",
+    "deleted": "データを削除しました"
+  },
+  "Errors": {
+    "notFoundTitle": "ページが見つかりません",
+    "notFoundBody": "お探しのページは見つかりませんでした。アドレスが変わったか、削除された可能性があります。",
+    "backHome": "トップにもどる",
+    "errorTitle": "問題が発生しました",
+    "errorBody": "一時的な問題が起きたようです。時間をおいて、もう一度お試しください。",
+    "retry": "もう一度試す"
+  },
   "Common": {
     "appName": "シゴトドキ",
     "tagline": "日本ではたらく あなたの履歴書・職務経歴書を、やさしく。",

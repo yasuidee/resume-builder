@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useTranslations, useLocale } from "next-intl";
+import { toast } from "sonner";
 import { Check, Loader2, Trash2 } from "lucide-react";
 import { useRouter } from "@/i18n/navigation";
 import { setConsent, deleteMyData } from "@/lib/actions/consent";
@@ -11,6 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 
 export function PrivacyControls({ initial }: { initial: ConsentState }) {
   const t = useTranslations("Privacy");
+  const tt = useTranslations("Toast");
   const locale = useLocale();
   const router = useRouter();
   const [state, setState] = useState<ConsentState>(initial);
@@ -25,6 +27,7 @@ export function PrivacyControls({ initial }: { initial: ConsentState }) {
       await setConsent(type, next, text, locale);
       setState((s) => ({ ...s, [type]: next }));
       setPendingType(null);
+      toast.success(tt("consentSaved"));
     });
   }
 
@@ -33,7 +36,7 @@ export function PrivacyControls({ initial }: { initial: ConsentState }) {
     setDeleting(true);
     try {
       await deleteMyData();
-      alert(t("deleted"));
+      toast.success(tt("deleted"));
       router.push("/dashboard");
     } finally {
       setDeleting(false);

@@ -12,6 +12,7 @@ import { CvDocument } from "@/components/resume/cv-document";
 import { resumeCss } from "@/components/resume/resume-styles";
 import { PdfDownloadButton } from "@/components/resume/pdf-download-button";
 import { ConsistencyCheck } from "@/components/resume/consistency-check";
+import { SheetScaler } from "@/components/resume/sheet-scaler";
 import { Button } from "@/components/ui/button";
 
 export default async function PreviewPage({
@@ -81,9 +82,7 @@ export default async function PreviewPage({
         )}
 
         <style dangerouslySetInnerHTML={{ __html: resumeCss }} />
-        <div className="overflow-x-auto">
-          <div className="mx-auto w-fit bg-white shadow-lg">{sheet}</div>
-        </div>
+        <SheetScaler>{sheet}</SheetScaler>
       </main>
     </div>
   );

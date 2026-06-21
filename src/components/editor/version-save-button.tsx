@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { History, Save, Check } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { snapshotVersion } from "@/lib/actions/versions";
@@ -9,6 +10,7 @@ import { Button } from "@/components/ui/button";
 
 export function VersionSaveButton({ documentId }: { documentId: string }) {
   const t = useTranslations("Versions");
+  const tt = useTranslations("Toast");
   const [saving, setSaving] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -17,6 +19,7 @@ export function VersionSaveButton({ documentId }: { documentId: string }) {
     try {
       await snapshotVersion(documentId);
       setDone(true);
+      toast.success(tt("versionSaved"));
       setTimeout(() => setDone(false), 2000);
     } finally {
       setSaving(false);

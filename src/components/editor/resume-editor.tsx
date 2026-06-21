@@ -23,9 +23,9 @@ import { saveResume } from "@/lib/actions/documents";
 import { useDebouncedCallback } from "@/lib/use-debounced-callback";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Select } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
+import { StepCard, Field } from "@/components/editor/fields";
 import { VersionSaveButton } from "@/components/editor/version-save-button";
 import { cn } from "@/lib/utils";
 
@@ -375,49 +375,6 @@ export function ResumeEditor({
           )}
         </div>
       </form>
-    </div>
-  );
-}
-
-function StepCard({
-  lead,
-  children,
-}: {
-  lead: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <Card>
-      <CardContent className="grid gap-5 p-6">
-        <p className="rounded-xl bg-indigo-50/60 p-3 text-sm leading-relaxed text-indigo-900">
-          {lead}
-        </p>
-        {children}
-      </CardContent>
-    </Card>
-  );
-}
-
-function Field({
-  label,
-  required,
-  optional,
-  hint,
-  children,
-}: {
-  label: string;
-  required?: boolean;
-  optional?: boolean;
-  hint?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="grid gap-1.5">
-      <Label required={required} optional={optional}>
-        {label}
-      </Label>
-      {children}
-      {hint && <p className="text-xs text-slate-400">{hint}</p>}
     </div>
   );
 }

@@ -10,7 +10,13 @@ const nextConfig: NextConfig = {
     "postgres",
     "playwright",
     "playwright-core",
+    "@sparticuz/chromium",
   ],
+  // The runtime migrator reads ./drizzle/*.sql from disk, so make sure those
+  // files are traced into every serverless function bundle.
+  outputFileTracingIncludes: {
+    "/**": ["./drizzle/**/*"],
+  },
 };
 
 export default withNextIntl(nextConfig);

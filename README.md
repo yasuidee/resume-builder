@@ -135,6 +135,15 @@ drizzle/                      # マイグレーション
 e2e/                          # Playwright E2E
 ```
 
+## Vercel へのデプロイ
+
+ローカルは設定ゼロで動きますが、Vercel（サーバーレス）では以下が必要です。`.env.example` を参照してください。
+
+1. **DB**: 実 PostgreSQL を用意（Vercel Postgres / Neon 等）し、`DATABASE_URL` を設定（未設定だと PGlite になりサーバーレスでは永続化されません）。マイグレーションは初回リクエスト時に自動実行されます。
+2. **PDF**: サーバーレスでは `@sparticuz/chromium` ＋ `playwright-core` を自動使用します（コードが `VERCEL` 環境を検出して切替）。ビルド時のブラウザDLを避けるため `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1` を設定。
+3. （任意）実 AI を使うなら `AI_PROVIDER=real` ＋ `ANTHROPIC_API_KEY`。
+4. PDF生成は Chromium 起動のため、`/api/pdf` の関数タイムアウトを 60s に設定済み（`maxDuration`）。
+
 ## デプロイ時のメモ（PDF）
 
 - ローカル（macOS）では Chromium のシステムフォント（Hiragino 等）で日本語が正しく出ます。

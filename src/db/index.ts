@@ -30,7 +30,9 @@ async function initPostgres(url: string): Promise<Db> {
   const { drizzle } = await import("drizzle-orm/postgres-js");
   const { migrate } = await import("drizzle-orm/postgres-js/migrator");
   const postgres = (await import("postgres")).default;
-  const client = postgres(url, { max: 1 });
+  // prepare:false keeps it compatible with pooled connections (e.g. Neon /
+  // Vercel Postgres via PgBouncer in transaction mode).
+  const client = postgres(url, { max: 1, prepare: false });
   const db = drizzle(client, { schema }) as unknown as Db;
   await migrate(db as never, { migrationsFolder: MIGRATIONS_FOLDER });
   await ensureSeed(db);

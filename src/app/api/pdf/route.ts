@@ -8,6 +8,8 @@ import { urlToPdf } from "@/lib/pdf/playwright";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+// PDF generation spins up headless Chromium — give it headroom on Vercel.
+export const maxDuration = 60;
 
 export async function GET(request: Request) {
   const url = new URL(request.url);

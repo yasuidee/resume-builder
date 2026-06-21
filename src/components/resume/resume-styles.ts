@@ -86,3 +86,37 @@ export const resumeCss = `
   .rk-sheet { width: auto; padding: 0; }
 }
 `;
+
+// "Modern" résumé template — a clean, single-column contemporary layout.
+export const resumeModernCss = `
+.rkm-sheet {
+  width: 190mm;
+  margin: 0 auto;
+  background: #ffffff;
+  color: #1f2937;
+  box-sizing: border-box;
+  padding: 14mm;
+  font-family: "Noto Sans JP", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.7;
+}
+.rkm-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10mm; border-bottom: 2px solid #4f46e5; padding-bottom: 5mm; }
+.rkm-name { font-size: 22pt; font-weight: 700; letter-spacing: 0.04em; }
+.rkm-furigana { font-size: 9pt; color: #6b7280; }
+.rkm-romaji { font-size: 10pt; color: #6b7280; margin-top: 1mm; }
+.rkm-contact { margin-top: 3mm; font-size: 9.5pt; color: #374151; }
+.rkm-contact span { margin-right: 5mm; white-space: nowrap; }
+.rkm-photo { width: 28mm; height: 36mm; border: 1px solid #d1d5db; border-radius: 2mm; object-fit: cover; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; color: #cbd5e1; font-size: 8pt; overflow: hidden; }
+.rkm-section { margin-top: 7mm; }
+.rkm-section-title { font-size: 12pt; font-weight: 700; color: #4f46e5; letter-spacing: 0.08em; margin-bottom: 2.5mm; }
+.rkm-row { display: flex; gap: 4mm; padding: 1.5mm 0; border-bottom: 1px solid #f1f3f5; }
+.rkm-row:last-child { border-bottom: none; }
+.rkm-date { flex: 0 0 26mm; color: #6b7280; font-size: 9.5pt; white-space: nowrap; }
+.rkm-text { flex: 1; }
+.rkm-kv { display: flex; gap: 4mm; padding: 1mm 0; }
+.rkm-kv-label { flex: 0 0 26mm; color: #6b7280; font-weight: 600; }
+.rkm-muted { color: #9ca3af; }
+@media print {
+  .rkm-sheet { width: auto; padding: 0; }
+}
+`;

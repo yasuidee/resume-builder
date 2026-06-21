@@ -3,9 +3,10 @@ import { setRequestLocale } from "next-intl/server";
 import { getCurrentUser } from "@/lib/auth";
 import { getDocumentForUser, loadResumeValues } from "@/lib/resume";
 import { loadCvValues } from "@/lib/cv";
-import { ResumeDocument } from "@/components/resume/resume-document";
+import { ResumeByTemplate } from "@/components/resume/resume-by-template";
 import { CvDocument } from "@/components/resume/cv-document";
-import { resumeCss } from "@/components/resume/resume-styles";
+import { resumeCss, resumeModernCss } from "@/components/resume/resume-styles";
+import type { ResumeTemplate } from "@/lib/actions/documents";
 
 // Chrome-less page used only as the source for Playwright PDF generation.
 // `?set=1` renders the resume and CV together (resume + CV combined PDF).
@@ -26,17 +27,23 @@ export default async function PrintPage({
   if (!doc) notFound();
 
   const isSet = set === "1";
+  const template =
+    ((doc.data as { template?: ResumeTemplate } | null)?.template ??
+      "classic") as ResumeTemplate;
 
   return (
     <>
       <style
         dangerouslySetInnerHTML={{
-          __html: `html,body{background:#fff;margin:0;padding:0;}${resumeCss}`,
+          __html: `html,body{background:#fff;margin:0;padding:0;}${resumeCss}${resumeModernCss}`,
         }}
       />
       {isSet ? (
         <>
-          <ResumeDocument values={await loadResumeValues(user.id)} />
+          <ResumeByTemplate
+            values={await loadResumeValues(user.id)}
+            template={template}
+          />
           <div style={{ breakBefore: "page" }}>
             <CvDocument values={await loadCvValues(user.id)} />
           </div>
@@ -44,7 +51,10 @@ export default async function PrintPage({
       ) : doc.type === "cv" ? (
         <CvDocument values={await loadCvValues(user.id)} />
       ) : (
-        <ResumeDocument values={await loadResumeValues(user.id)} />
+        <ResumeByTemplate
+          values={await loadResumeValues(user.id)}
+          template={template}
+        />
       )}
     </>
   );

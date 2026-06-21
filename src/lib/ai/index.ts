@@ -8,10 +8,19 @@ let cached: AIProvider | null = null;
 export function getAIProvider(): AIProvider {
   if (cached) return cached;
   if (process.env.AI_PROVIDER === "real") {
-    // Lazy import so the unimplemented real provider never loads by default.
-    const { createRealAIProvider } =
-      require("./real") as typeof import("./real");
-    cached = createRealAIProvider();
+    try {
+      // Lazy import so the Anthropic SDK never loads unless explicitly enabled.
+      const { createRealAIProvider } =
+        require("./real") as typeof import("./real");
+      cached = createRealAIProvider();
+    } catch (err) {
+      // Never break the app if the real provider can't initialize (e.g. no key).
+      console.warn(
+        "[ai] real provider unavailable, falling back to mock:",
+        err instanceof Error ? err.message : err,
+      );
+      cached = new MockAIProvider();
+    }
   } else {
     cached = new MockAIProvider();
   }

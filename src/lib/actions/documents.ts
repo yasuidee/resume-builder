@@ -70,6 +70,27 @@ export async function deleteDocument(
   return { ok: true };
 }
 
+export type ResumeTemplate = "classic" | "modern";
+
+export async function setTemplate(
+  documentId: string,
+  template: ResumeTemplate,
+): Promise<{ ok: boolean }> {
+  const user = await requireUser();
+  const db = await getDb();
+  const [doc] = await db
+    .select({ data: documents.data })
+    .from(documents)
+    .where(and(eq(documents.id, documentId), eq(documents.userId, user.id)))
+    .limit(1);
+  if (!doc) return { ok: false };
+  await db
+    .update(documents)
+    .set({ data: { ...(doc.data ?? {}), template }, updatedAt: new Date() })
+    .where(eq(documents.id, documentId));
+  return { ok: true };
+}
+
 export async function renameDocument(
   documentId: string,
   title: string,

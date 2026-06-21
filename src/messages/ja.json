@@ -148,6 +148,9 @@
   "Preview": {
     "title": "プレビュー",
     "backToEdit": "編集にもどる",
+    "template": "デザイン",
+    "templateClassic": "クラシック（JIS）",
+    "templateModern": "モダン",
     "downloadPdf": "PDFをダウンロード",
     "generating": "PDFを作成中…",
     "incompleteTitle": "未入力の必須項目があります",

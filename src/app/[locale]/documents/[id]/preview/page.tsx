@@ -7,12 +7,14 @@ import { getDocumentForUser, loadResumeValues } from "@/lib/resume";
 import { loadCvValues } from "@/lib/cv";
 import { missingRequiredResume } from "@/lib/validation/resume";
 import { missingRequiredCv } from "@/lib/validation/cv";
-import { ResumeDocument } from "@/components/resume/resume-document";
+import { ResumeByTemplate } from "@/components/resume/resume-by-template";
 import { CvDocument } from "@/components/resume/cv-document";
-import { resumeCss } from "@/components/resume/resume-styles";
+import { resumeCss, resumeModernCss } from "@/components/resume/resume-styles";
 import { PdfDownloadButton } from "@/components/resume/pdf-download-button";
 import { ConsistencyCheck } from "@/components/resume/consistency-check";
 import { SheetScaler } from "@/components/resume/sheet-scaler";
+import { TemplateSwitcher } from "@/components/resume/template-switcher";
+import type { ResumeTemplate } from "@/lib/actions/documents";
 import { Button } from "@/components/ui/button";
 
 export default async function PreviewPage({
@@ -32,6 +34,9 @@ export default async function PreviewPage({
   if (!doc) notFound();
 
   const isCv = doc.type === "cv";
+  const template =
+    ((doc.data as { template?: ResumeTemplate } | null)?.template ??
+      "classic") as ResumeTemplate;
 
   let missingLabels: string[] = [];
   let sheet: React.ReactNode;
@@ -50,7 +55,7 @@ export default async function PreviewPage({
     missingLabels = missing.map((key) =>
       key === "education" ? te("step3") : te(key as never),
     );
-    sheet = <ResumeDocument values={values} />;
+    sheet = <ResumeByTemplate values={values} template={template} />;
   }
 
   return (
@@ -63,7 +68,12 @@ export default async function PreviewPage({
               {t("backToEdit")}
             </Link>
           </Button>
-          <PdfDownloadButton documentId={doc.id} />
+          <div className="flex items-center gap-3">
+            {!isCv && (
+              <TemplateSwitcher documentId={doc.id} current={template} />
+            )}
+            <PdfDownloadButton documentId={doc.id} />
+          </div>
         </div>
       </div>
 
@@ -81,7 +91,9 @@ export default async function PreviewPage({
           </div>
         )}
 
-        <style dangerouslySetInnerHTML={{ __html: resumeCss }} />
+        <style
+          dangerouslySetInnerHTML={{ __html: resumeCss + resumeModernCss }}
+        />
         <SheetScaler>{sheet}</SheetScaler>
       </main>
     </div>

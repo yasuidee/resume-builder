@@ -1,5 +1,5 @@
 {
-  "id": "50ed5a7d-010c-4ecc-a5e6-67828d20fd27",
+  "id": "ac8a805c-7030-4e3a-a5a5-4d827f58652b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -184,7 +184,7 @@
         },
         "acquired_date": {
           "name": "acquired_date",
-          "type": "date",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -515,13 +515,13 @@
         },
         "start_date": {
           "name": "start_date",
-          "type": "date",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
         "end_date": {
           "name": "end_date",
-          "type": "date",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
@@ -1211,13 +1211,13 @@
         },
         "start_date": {
           "name": "start_date",
-          "type": "date",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
         "end_date": {
           "name": "end_date",
-          "type": "date",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },

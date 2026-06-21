@@ -76,8 +76,9 @@ export const educations = pgTable("educations", {
   country: text("country"),
   faculty: text("faculty"),
   degree: text("degree"),
-  startDate: date("start_date"),
-  endDate: date("end_date"),
+  // Month granularity (YYYY-MM) -- stored as text
+  startDate: text("start_date"),
+  endDate: text("end_date"),
   // 'graduated' | 'expected' | 'enrolled' | 'withdrawn'
   status: text("status"),
   sortOrder: integer("sort_order").notNull().default(0),
@@ -97,8 +98,9 @@ export const workExperiences = pgTable("work_experiences", {
   department: text("department"),
   position: text("position"),
   employmentType: text("employment_type"),
-  startDate: date("start_date"),
-  endDate: date("end_date"),
+  // Month granularity (YYYY-MM) -- stored as text
+  startDate: text("start_date"),
+  endDate: text("end_date"),
   isCurrent: boolean("is_current").notNull().default(false),
   description: text("description"),
   achievements: text("achievements"),
@@ -131,7 +133,8 @@ export const certifications = pgTable("certifications", {
     .references(() => users.id, { onDelete: "cascade" }),
   name: text("name").notNull(),
   issuer: text("issuer"),
-  acquiredDate: date("acquired_date"),
+  // Month granularity (YYYY-MM) -- stored as text
+  acquiredDate: text("acquired_date"),
   sortOrder: integer("sort_order").notNull().default(0),
   createdAt,
 });

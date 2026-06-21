@@ -64,7 +64,14 @@
     "consentOff": "同意なし",
     "pdfHistory": "PDF出力の履歴",
     "downloadSet": "履歴書＋職務経歴書をまとめてPDF",
-    "generatingSet": "まとめPDFを作成中…"
+    "generatingSet": "まとめPDFを作成中…",
+    "actions": "操作",
+    "rename": "名前を変更",
+    "delete": "削除",
+    "renamePrompt": "新しい書類名を入力してください",
+    "deleteConfirm": "この書類を削除しますか？（プロフィールや入力内容は残ります）",
+    "renamed": "名前を変更しました",
+    "docDeleted": "書類を削除しました"
   },
   "NewDocument": {
     "title": "新しい書類を作る",
@@ -131,7 +138,12 @@
     "whyResidence": "在留資格は任意です。書きたくない場合は空欄で問題ありません。",
     "placeholderName": "山田 太郎",
     "placeholderKana": "ヤマダ タロウ",
-    "placeholderSchool": "〇〇大学"
+    "placeholderSchool": "〇〇大学",
+    "photo": "顔写真",
+    "photoUpload": "写真をアップロード",
+    "photoChange": "写真を変更",
+    "photoRemove": "削除",
+    "photoHint": "任意。3:4の証明写真がきれいに表示されます。アップロードした画像はあなたの書類にのみ使われます。"
   },
   "Preview": {
     "title": "プレビュー",

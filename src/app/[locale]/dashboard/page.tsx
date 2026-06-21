@@ -6,6 +6,7 @@ import { documents, pdfExports, consents } from "@/db/schema";
 import { getCurrentUser } from "@/lib/auth";
 import { SiteHeader } from "@/components/site-header";
 import { SetPdfButton } from "@/components/resume/set-pdf-button";
+import { DocumentActions } from "@/components/dashboard/document-actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FilePlus2, FileText } from "lucide-react";
@@ -127,11 +128,22 @@ export default async function DashboardPage({
                           ・{t("updatedAt")} {formatDate(doc.updatedAt)}
                         </p>
                       </div>
-                      <Button asChild variant="outline" size="sm">
-                        <Link href={`/documents/${doc.id}/edit`}>
-                          {t("open")}
-                        </Link>
-                      </Button>
+                      <div className="flex items-center gap-1">
+                        <Button asChild variant="outline" size="sm">
+                          <Link href={`/documents/${doc.id}/edit`}>
+                            {t("open")}
+                          </Link>
+                        </Button>
+                        <DocumentActions
+                          documentId={doc.id}
+                          currentTitle={
+                            doc.title ||
+                            (doc.type === "resume"
+                              ? t("typeResume")
+                              : t("typeCv"))
+                          }
+                        />
+                      </div>
                     </CardContent>
                   </Card>
                 </li>

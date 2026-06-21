@@ -35,6 +35,7 @@ export async function loadResumeValues(
     currentAddress: profile?.currentAddress ?? "",
     contactAddress: profile?.contactAddress ?? "",
     gender: (profile?.gender as ResumeFormValues["gender"]) ?? "unspecified",
+    photoUrl: profile?.photoUrl ?? "",
     residenceStatus: profile?.residenceStatus ?? "",
     residenceExpiry: profile?.residenceExpiry ?? "",
     workRestriction: profile?.workRestriction ?? "",

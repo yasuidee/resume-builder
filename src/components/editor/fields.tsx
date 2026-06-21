@@ -25,12 +25,14 @@ export function Field({
   required,
   optional,
   hint,
+  error,
   children,
 }: {
   label: string;
   required?: boolean;
   optional?: boolean;
   hint?: string;
+  error?: string;
   children: ReactNode;
 }) {
   // Wrapping the control in a <label> gives every field an accessible name
@@ -47,7 +49,11 @@ export function Field({
         )}
       </span>
       {children}
-      {hint && <span className="text-xs text-slate-400">{hint}</span>}
+      {error ? (
+        <span className="text-xs text-red-500">{error}</span>
+      ) : (
+        hint && <span className="text-xs text-slate-400">{hint}</span>
+      )}
     </label>
   );
 }

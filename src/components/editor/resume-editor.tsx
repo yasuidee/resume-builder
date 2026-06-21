@@ -15,6 +15,7 @@ import {
 import { Link } from "@/i18n/navigation";
 import {
   computeResumeCompletion,
+  isValidEmail,
   GENDERS,
   EDU_STATUSES,
   type ResumeFormValues,
@@ -27,6 +28,7 @@ import { Select } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { StepCard, Field } from "@/components/editor/fields";
 import { VersionSaveButton } from "@/components/editor/version-save-button";
+import { PhotoUpload } from "@/components/editor/photo-upload";
 import { cn } from "@/lib/utils";
 
 type SaveStatus = "idle" | "saving" | "saved";
@@ -48,7 +50,8 @@ export function ResumeEditor({
     defaultValues: initialValues,
     mode: "onChange",
   });
-  const { register, control, watch } = form;
+  const { register, control, watch, setValue, formState } = form;
+  const errors = formState.errors;
   const educations = useFieldArray({ control, name: "educations" });
 
   const values = watch();
@@ -135,6 +138,20 @@ export function ResumeEditor({
       <form onSubmit={(e) => e.preventDefault()}>
         {step === 1 && (
           <StepCard lead={t("step1Lead")}>
+            <div className="grid gap-1.5">
+              <span className="flex items-center gap-2 text-sm font-medium text-slate-800">
+                {t("photo")}
+                <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-normal text-slate-500">
+                  任意
+                </span>
+              </span>
+              <PhotoUpload
+                value={watch("photoUrl")}
+                onChange={(v) =>
+                  setValue("photoUrl", v, { shouldDirty: true })
+                }
+              />
+            </div>
             <Field label={t("fullName")} required hint={t("whyName")}>
               <Input
                 {...register("fullName")}
@@ -151,8 +168,20 @@ export function ResumeEditor({
               <Input {...register("romajiName")} placeholder="Taro Yamada" />
             </Field>
             <div className="grid gap-4 sm:grid-cols-2">
-              <Field label={t("birthDate")} required>
-                <Input type="date" {...register("birthDate")} />
+              <Field
+                label={t("birthDate")}
+                required
+                error={errors.birthDate?.message}
+              >
+                <Input
+                  type="date"
+                  {...register("birthDate", {
+                    validate: (v) =>
+                      !v ||
+                      new Date(v) <= new Date() ||
+                      "生年月日が未来の日付になっています。",
+                  })}
+                />
               </Field>
               <Field label={t("gender")} optional>
                 <Select {...register("gender")}>
@@ -166,10 +195,13 @@ export function ResumeEditor({
                 </Select>
               </Field>
             </div>
-            <Field label={t("email")} required>
+            <Field label={t("email")} required error={errors.email?.message}>
               <Input
                 type="email"
-                {...register("email")}
+                {...register("email", {
+                  validate: (v) =>
+                    isValidEmail(v) || "メールアドレスの形式を確認してください。",
+                })}
                 placeholder="you@example.com"
               />
             </Field>

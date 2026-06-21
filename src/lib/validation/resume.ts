@@ -35,6 +35,7 @@ export const resumeFormSchema = z.object({
   currentAddress: str(),
   contactAddress: str(),
   gender: z.enum(GENDERS).default("unspecified"),
+  photoUrl: str(), // data URL of the face photo (optional)
   // Step 2 — working in Japan
   residenceStatus: str(),
   residenceExpiry: str(), // YYYY-MM-DD
@@ -61,6 +62,7 @@ export const EMPTY_RESUME: ResumeFormValues = {
   currentAddress: "",
   contactAddress: "",
   gender: "unspecified",
+  photoUrl: "",
   residenceStatus: "",
   residenceExpiry: "",
   workRestriction: "",

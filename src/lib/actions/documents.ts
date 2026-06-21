@@ -46,6 +46,45 @@ export async function createDocument(
   return { id: doc.id };
 }
 
+// Delete a single document (its version history cascades). The shared per-user
+// profile/education/work data is intentionally left intact.
+export async function deleteDocument(
+  documentId: string,
+): Promise<{ ok: boolean }> {
+  const user = await requireUser();
+  const db = await getDb();
+  const [doc] = await db
+    .select({ id: documents.id })
+    .from(documents)
+    .where(and(eq(documents.id, documentId), eq(documents.userId, user.id)))
+    .limit(1);
+  if (!doc) return { ok: false };
+
+  await db.delete(documents).where(eq(documents.id, documentId));
+  await db.insert(auditLogs).values({
+    userId: user.id,
+    action: "document.delete",
+    targetId: documentId,
+    metadata: {},
+  });
+  return { ok: true };
+}
+
+export async function renameDocument(
+  documentId: string,
+  title: string,
+): Promise<{ ok: boolean }> {
+  const user = await requireUser();
+  const db = await getDb();
+  const clean = title.trim().slice(0, 80);
+  const res = await db
+    .update(documents)
+    .set({ title: clean || null, updatedAt: new Date() })
+    .where(and(eq(documents.id, documentId), eq(documents.userId, user.id)))
+    .returning({ id: documents.id });
+  return { ok: res.length > 0 };
+}
+
 // Empty string -> null for nullable `date` columns.
 function dateOrNull(value: string): string | null {
   return value && value.trim() !== "" ? value.trim() : null;
@@ -88,6 +127,7 @@ export async function saveResume(
       currentAddress: v.currentAddress || null,
       contactAddress: v.contactAddress || null,
       gender: v.gender,
+      photoUrl: v.photoUrl || null,
       residenceStatus: v.residenceStatus || null,
       residenceExpiry: dateOrNull(v.residenceExpiry),
       workRestriction: v.workRestriction || null,

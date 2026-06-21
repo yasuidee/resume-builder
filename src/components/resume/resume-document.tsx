@@ -97,8 +97,17 @@ export function ResumeDocument({ values }: { values: ResumeFormValues }) {
             <td colSpan={3}>
               <span className="rk-furigana">{values.fullNameKana}</span>
             </td>
-            <td rowSpan={4} className="rk-photo">
-              写真
+            <td rowSpan={3} className="rk-photo">
+              {values.photoUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={values.photoUrl}
+                  alt=""
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                />
+              ) : (
+                "写真"
+              )}
             </td>
           </tr>
           <tr>
@@ -112,22 +121,12 @@ export function ResumeDocument({ values }: { values: ResumeFormValues }) {
           </tr>
           <tr>
             <th>生年月日</th>
-            <td colSpan={2}>
+            <td>
               {formatBirth(values.birthDate)}
               {age !== null ? `　（満${age}歳）` : ""}
             </td>
             <th style={{ width: "16mm" }}>性別</th>
-          </tr>
-          <tr>
-            <th>　</th>
-            <td colSpan={2}></td>
-            <td className="rk-cell-center">{gender}</td>
-          </tr>
-          <tr>
-            <th>ふりがな</th>
-            <td colSpan={4}>
-              <span className="rk-furigana">&nbsp;</span>
-            </td>
+            <td className="rk-cell-center">{gender || "　"}</td>
           </tr>
           <tr>
             <th>現住所</th>
@@ -135,9 +134,9 @@ export function ResumeDocument({ values }: { values: ResumeFormValues }) {
           </tr>
           <tr>
             <th>電話</th>
-            <td colSpan={2}>{values.phone}</td>
+            <td>{values.phone}</td>
             <th>メール</th>
-            <td>{values.email}</td>
+            <td colSpan={2}>{values.email}</td>
           </tr>
           {values.contactAddress ? (
             <tr>
